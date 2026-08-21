@@ -1,15 +1,105 @@
 'use client'
-import { useState } from 'react'
+
+import { useEffect, useState } from 'react'
+
+import Link from 'next/link'
+
+import { createClient } from '@/lib/supabase/client'
+
+type VillageSettings = {
+  village_name: string
+  address: string | null
+  post_office: string | null
+  mandal: string | null
+  district: string | null
+  state: string | null
+  country: string | null
+  pincode: string | null
+  latitude: number | null
+  longitude: number | null
+  google_maps_url: string | null
+}
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const [villageSettings, setVillageSettings] =
+    useState<VillageSettings | null>(null)
+
+  const [locationLoading, setLocationLoading] =
+    useState(true)
+
+  useEffect(() => {
+    async function loadVillageSettings() {
+      const supabase = createClient()
+
+      const { data, error } = await supabase
+        .from('village_settings')
+        .select(`
+          village_name,
+          address,
+          post_office,
+          mandal,
+          district,
+          state,
+          country,
+          pincode,
+          latitude,
+          longitude,
+          google_maps_url
+        `)
+        .limit(1)
+        .maybeSingle()
+
+      if (error) {
+        console.error(
+          'Village settings error:',
+          error
+        )
+
+        setLocationLoading(false)
+        return
+      }
+
+      if (data) {
+        setVillageSettings(data)
+      }
+
+      setLocationLoading(false)
+    }
+
+    loadVillageSettings()
+  }, [])
+
+  const mapUrl =
+    villageSettings?.google_maps_url ||
+    (
+      villageSettings?.latitude !== null &&
+      villageSettings?.latitude !== undefined &&
+      villageSettings?.longitude !== null &&
+      villageSettings?.longitude !== undefined
+        ? `https://www.google.com/maps?q=${villageSettings.latitude},${villageSettings.longitude}`
+        : ''
+    )
+
+  const mapEmbedUrl =
+    villageSettings?.latitude !== null &&
+    villageSettings?.latitude !== undefined &&
+    villageSettings?.longitude !== null &&
+    villageSettings?.longitude !== undefined
+      ? `https://www.google.com/maps?q=${villageSettings.latitude},${villageSettings.longitude}&output=embed`
+      : ''
 
   return (
     <>
       {/* HEADER */}
+
       <main id="home">
 
         {/* HERO */}
+
         <section className="hero">
+
           <div className="hero-content container">
 
             <span className="eyebrow">
@@ -54,7 +144,9 @@ export default function Home() {
         </section>
 
         {/* COMMUNITY STRIP */}
+
         <section className="stats">
+
           <div className="container stats-grid">
 
             <div>
@@ -78,10 +170,16 @@ export default function Home() {
             </div>
 
           </div>
+
         </section>
 
         {/* ABOUT */}
-        <section className="section" id="about">
+
+        <section
+          className="section"
+          id="about"
+        >
+
           <div className="container two-col">
 
             <div>
@@ -117,9 +215,13 @@ export default function Home() {
 
             <div className="about-card">
 
-              <div className="card-icon">⌂</div>
+              <div className="card-icon">
+                ⌂
+              </div>
 
-              <h3>Our Community</h3>
+              <h3>
+                Our Community
+              </h3>
 
               <p>
                 One place for village news, events, members,
@@ -136,10 +238,16 @@ export default function Home() {
             </div>
 
           </div>
+
         </section>
 
         {/* EVENTS */}
-        <section className="section soft" id="events">
+
+        <section
+          className="section soft"
+          id="events"
+        >
+
           <div className="container">
 
             <div className="section-head">
@@ -150,7 +258,9 @@ export default function Home() {
                   WHAT'S HAPPENING
                 </span>
 
-                <h2>Upcoming events</h2>
+                <h2>
+                  Upcoming events
+                </h2>
 
               </div>
 
@@ -178,7 +288,9 @@ export default function Home() {
                     FESTIVAL
                   </span>
 
-                  <h3>Village Festival</h3>
+                  <h3>
+                    Village Festival
+                  </h3>
 
                   <p>
                     Community celebration and cultural activities.
@@ -205,7 +317,9 @@ export default function Home() {
                     COMMUNITY
                   </span>
 
-                  <h3>Village Clean-up Drive</h3>
+                  <h3>
+                    Village Clean-up Drive
+                  </h3>
 
                   <p>
                     Let's work together to keep our village clean.
@@ -232,7 +346,9 @@ export default function Home() {
                     ACTIVITY
                   </span>
 
-                  <h3>Community Sports Day</h3>
+                  <h3>
+                    Community Sports Day
+                  </h3>
 
                   <p>
                     Games and activities for children and adults.
@@ -249,10 +365,16 @@ export default function Home() {
             </div>
 
           </div>
+
         </section>
 
         {/* GALLERY */}
-        <section className="section" id="gallery">
+
+        <section
+          className="section"
+          id="gallery"
+        >
+
           <div className="container">
 
             <div className="section-head">
@@ -263,7 +385,9 @@ export default function Home() {
                   OUR MEMORIES
                 </span>
 
-                <h2>Village gallery</h2>
+                <h2>
+                  Village gallery
+                </h2>
 
               </div>
 
@@ -306,10 +430,16 @@ export default function Home() {
             </p>
 
           </div>
+
         </section>
 
         {/* UPDATES */}
-        <section className="section soft" id="updates">
+
+        <section
+          className="section soft"
+          id="updates"
+        >
+
           <div className="container two-col">
 
             <div>
@@ -318,13 +448,17 @@ export default function Home() {
                 VILLAGE NEWS
               </span>
 
-              <h2>Latest updates</h2>
+              <h2>
+                Latest updates
+              </h2>
 
               <div className="updates">
 
                 <article>
 
-                  <span>21 AUG 2026</span>
+                  <span>
+                    21 AUG 2026
+                  </span>
 
                   <h3>
                     Welcome to the new village community portal
@@ -339,7 +473,9 @@ export default function Home() {
 
                 <article>
 
-                  <span>20 AUG 2026</span>
+                  <span>
+                    20 AUG 2026
+                  </span>
 
                   <h3>
                     Community participation
@@ -354,7 +490,9 @@ export default function Home() {
 
                 <article>
 
-                  <span>18 AUG 2026</span>
+                  <span>
+                    18 AUG 2026
+                  </span>
 
                   <h3>
                     Share village events
@@ -372,21 +510,28 @@ export default function Home() {
             </div>
 
             {/* BIRTHDAYS */}
+
             <div>
 
               <span className="section-label">
                 COMMUNITY MOMENTS
               </span>
 
-              <h2>Birthdays & celebrations</h2>
+              <h2>
+                Birthdays & celebrations
+              </h2>
 
               <div className="birthday-box">
 
-                <div className="cake">🎂</div>
+                <div className="cake">
+                  🎂
+                </div>
 
                 <div>
 
-                  <strong>Today's birthdays</strong>
+                  <strong>
+                    Today's birthdays
+                  </strong>
 
                   <p>
                     Member birthdays will appear here
@@ -399,11 +544,15 @@ export default function Home() {
 
               <div className="birthday-box">
 
-                <div className="cake">🎉</div>
+                <div className="cake">
+                  🎉
+                </div>
 
                 <div>
 
-                  <strong>Festivals & special days</strong>
+                  <strong>
+                    Festivals & special days
+                  </strong>
 
                   <p>
                     Keep track of village celebrations
@@ -417,10 +566,16 @@ export default function Home() {
             </div>
 
           </div>
+
         </section>
 
         {/* COMMUNITY */}
-        <section className="section" id="community">
+
+        <section
+          className="section"
+          id="community"
+        >
+
           <div className="container">
 
             <div className="center-head">
@@ -444,9 +599,13 @@ export default function Home() {
 
               <article className="feature">
 
-                <div className="feature-icon">🤝</div>
+                <div className="feature-icon">
+                  🤝
+                </div>
 
-                <h3>Community Help</h3>
+                <h3>
+                  Community Help
+                </h3>
 
                 <p>
                   Ask for or offer help with local needs,
@@ -461,9 +620,13 @@ export default function Home() {
 
               <article className="feature">
 
-                <div className="feature-icon">💼</div>
+                <div className="feature-icon">
+                  💼
+                </div>
 
-                <h3>Jobs & Opportunities</h3>
+                <h3>
+                  Jobs & Opportunities
+                </h3>
 
                 <p>
                   Share local job openings, recruitment needs
@@ -478,9 +641,13 @@ export default function Home() {
 
               <article className="feature">
 
-                <div className="feature-icon">🌱</div>
+                <div className="feature-icon">
+                  🌱
+                </div>
 
-                <h3>Volunteer</h3>
+                <h3>
+                  Volunteer
+                </h3>
 
                 <p>
                   Join village activities, education and
@@ -496,9 +663,213 @@ export default function Home() {
             </div>
 
           </div>
+
+        </section>
+
+        {/* VILLAGE LOCATION */}
+
+        <section
+          className="section soft"
+          id="location"
+        >
+
+          <div className="container">
+
+            <div className="section-head">
+
+              <div>
+
+                <span className="section-label">
+                  FIND US
+                </span>
+
+                <h2>
+                  Visit Charalavandlapalli
+                </h2>
+
+                <p>
+                  Our village, our home.
+                </p>
+
+              </div>
+
+              {!locationLoading &&
+                mapUrl && (
+                  <a
+                    href={mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-link"
+                  >
+                    View on Google Maps →
+                  </a>
+                )}
+
+            </div>
+
+            {locationLoading ? (
+              <div className="location-card">
+
+                <div className="location-content">
+
+                  <span className="section-label">
+                    VILLAGE LOCATION
+                  </span>
+
+                  <h3>
+                    Loading location...
+                  </h3>
+
+                </div>
+
+              </div>
+            ) : villageSettings ? (
+
+              <div className="location-grid">
+
+                {/* ADDRESS */}
+
+                <div className="location-card">
+
+                  <div className="location-content">
+
+                    <div className="card-icon">
+                      📍
+                    </div>
+
+                    <h3>
+                      {villageSettings.village_name}
+                    </h3>
+
+                    {villageSettings.address && (
+                      <p>
+                        {villageSettings.address}
+                      </p>
+                    )}
+
+                    <div className="location-details">
+
+                      {villageSettings.post_office && (
+                        <span>
+                          <strong>Post:</strong>{' '}
+                          {villageSettings.post_office}
+                        </span>
+                      )}
+
+                      {villageSettings.mandal && (
+                        <span>
+                          <strong>Mandal:</strong>{' '}
+                          {villageSettings.mandal}
+                        </span>
+                      )}
+
+                      {villageSettings.district && (
+                        <span>
+                          <strong>District:</strong>{' '}
+                          {villageSettings.district}
+                        </span>
+                      )}
+
+                      {villageSettings.state && (
+                        <span>
+                          <strong>State:</strong>{' '}
+                          {villageSettings.state}
+                        </span>
+                      )}
+
+                      {villageSettings.country && (
+                        <span>
+                          <strong>Country:</strong>{' '}
+                          {villageSettings.country}
+                        </span>
+                      )}
+
+                      {villageSettings.pincode && (
+                        <span>
+                          <strong>PIN:</strong>{' '}
+                          {villageSettings.pincode}
+                        </span>
+                      )}
+
+                    </div>
+
+                    {mapUrl && (
+                      <a
+                        href={mapUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn primary"
+                        style={{
+                          marginTop: '20px',
+                        }}
+                      >
+                        🗺️ Open Google Maps
+                      </a>
+                    )}
+
+                  </div>
+
+                </div>
+
+                {/* MAP */}
+
+                <div className="location-map">
+
+                  {mapEmbedUrl ? (
+                    <iframe
+                      src={mapEmbedUrl}
+                      title="Charalavandlapalli location map"
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <div className="location-map-empty">
+                      <span>
+                        📍
+                      </span>
+
+                      <p>
+                        Map location is not available yet.
+                      </p>
+                    </div>
+                  )}
+
+                </div>
+
+              </div>
+
+            ) : (
+
+              <div className="location-card">
+
+                <div className="location-content">
+
+                  <div className="card-icon">
+                    📍
+                  </div>
+
+                  <h3>
+                    Charalavandlapalli
+                  </h3>
+
+                  <p>
+                    Village location information will be
+                    available soon.
+                  </p>
+
+                </div>
+
+              </div>
+
+            )}
+
+          </div>
+
         </section>
 
         {/* REGISTER CTA */}
+
         <section className="register-section">
 
           <div className="container register-box">
@@ -539,6 +910,7 @@ export default function Home() {
       </main>
 
       {/* FOOTER */}
+
       <footer>
 
         <div className="container footer-grid">
@@ -552,6 +924,7 @@ export default function Home() {
               </span>
 
               <span>
+
                 <strong>
                   Charalavandlapalli
                 </strong>
@@ -559,6 +932,7 @@ export default function Home() {
                 <small>
                   Village Community
                 </small>
+
               </span>
 
             </div>
@@ -572,7 +946,9 @@ export default function Home() {
 
           <div>
 
-            <strong>Explore</strong>
+            <strong>
+              Explore
+            </strong>
 
             <a href="#about">
               About
@@ -586,11 +962,17 @@ export default function Home() {
               Gallery
             </a>
 
+            <a href="#location">
+              Location
+            </a>
+
           </div>
 
           <div>
 
-            <strong>Community</strong>
+            <strong>
+              Community
+            </strong>
 
             <a href="/login">
               Login

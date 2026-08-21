@@ -41,6 +41,7 @@ export default function AdminDashboardPage() {
         setError(
           'You must be logged in to access the administrator area.'
         )
+
         setLoading(false)
         return
       }
@@ -320,6 +321,13 @@ export default function AdminDashboardPage() {
             </Link>
 
             <Link
+              href="/admin/settings"
+              className="admin-nav-link"
+            >
+              Settings
+            </Link>
+
+            <Link
               href="/"
               className="admin-nav-link"
             >
@@ -544,6 +552,34 @@ export default function AdminDashboardPage() {
                 <span>
                   Manage village photographs and
                   event albums.
+                </span>
+
+              </div>
+
+              <b>→</b>
+
+            </Link>
+
+            {/* VILLAGE SETTINGS */}
+
+            <Link
+              href="/admin/settings"
+              className="quick-action"
+            >
+
+              <span className="quick-action-icon">
+                ⚙️
+              </span>
+
+              <div>
+
+                <strong>
+                  Village Settings
+                </strong>
+
+                <span>
+                  Manage village address, map location
+                  and contact information.
                 </span>
 
               </div>
