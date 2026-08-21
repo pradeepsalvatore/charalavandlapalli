@@ -384,7 +384,7 @@ export default function AdminDashboardPage() {
             </Link>
 
             <Link
-              href="/events"
+              href="/admin/events"
               className="dashboard-stat"
             >
 
@@ -476,7 +476,7 @@ export default function AdminDashboardPage() {
             </Link>
 
             <Link
-              href="/events"
+              href="/admin/events"
               className="quick-action"
             >
 

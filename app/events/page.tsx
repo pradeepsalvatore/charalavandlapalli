@@ -1,10 +1,12 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 
 type CalendarItem = {
   id: string
+  sourceId: string
   name: string
   description: string | null
   date: string
@@ -32,9 +34,11 @@ function formatDate(dateString: string) {
     day: date.toLocaleDateString('en-IN', {
       day: '2-digit',
     }),
+
     month: date.toLocaleDateString('en-IN', {
       month: 'short',
     }),
+
     weekday: date.toLocaleDateString('en-IN', {
       weekday: 'long',
     }),
@@ -70,14 +74,25 @@ function getItemCategory(item: CalendarItem) {
 }
 
 export default function EventsPage() {
-  const [items, setItems] = useState<CalendarItem[]>([])
-  const [filter, setFilter] = useState('all')
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
+  const [items, setItems] =
+    useState<CalendarItem[]>([])
+
+  const [filter, setFilter] =
+    useState('all')
+
+  const [loading, setLoading] =
+    useState(true)
+
+  const [error, setError] =
+    useState('')
 
   useEffect(() => {
     async function loadCalendar() {
       const supabase = createClient()
+
+      /* =========================================
+         FESTIVALS
+         ========================================= */
 
       const festivalsResult = await supabase
         .from('festivals')
@@ -96,6 +111,10 @@ export default function EventsPage() {
           ascending: true,
         })
 
+      /* =========================================
+         VILLAGE EVENTS
+         ========================================= */
+
       const eventsResult = await supabase
         .from('events')
         .select(`
@@ -113,6 +132,10 @@ export default function EventsPage() {
           ascending: true,
         })
 
+      /* =========================================
+         FESTIVAL ERROR
+         ========================================= */
+
       if (festivalsResult.error) {
         console.error(
           'Festival query error:',
@@ -126,6 +149,10 @@ export default function EventsPage() {
         setLoading(false)
         return
       }
+
+      /* =========================================
+         EVENT ERROR
+         ========================================= */
 
       if (eventsResult.error) {
         console.error(
@@ -141,30 +168,80 @@ export default function EventsPage() {
         return
       }
 
+      /* =========================================
+         CONVERT FESTIVALS
+         ========================================= */
+
       const festivalItems: CalendarItem[] =
-        (festivalsResult.data || []).map((festival) => ({
-          id: `festival-${festival.id}`,
-          name: festival.name,
-          description: festival.description,
-          date: festival.festival_date,
-          type: 'festival',
-          category: festival.festival_type || 'religious',
-          isOptional: festival.is_optional,
-          isPublicHoliday: festival.is_public_holiday,
-        }))
+        (festivalsResult.data || []).map(
+          (festival) => ({
+            id: `festival-${festival.id}`,
+
+            sourceId: festival.id,
+
+            name: festival.name,
+
+            description:
+              festival.description,
+
+            date:
+              festival.festival_date,
+
+            type: 'festival',
+
+            category:
+              festival.festival_type ||
+              'religious',
+
+            isOptional:
+              festival.is_optional,
+
+            isPublicHoliday:
+              festival.is_public_holiday,
+          })
+        )
+
+      /* =========================================
+         CONVERT VILLAGE EVENTS
+         ========================================= */
 
       const eventItems: CalendarItem[] =
-        (eventsResult.data || []).map((event) => ({
-          id: `event-${event.id}`,
-          name: event.title,
-          description: event.description,
-          date: event.event_date,
-          type: 'event',
-          category: 'village',
-          location: event.location,
-          startTime: event.start_time,
-          organizer: event.organizer,
-        }))
+        (eventsResult.data || []).map(
+          (event) => ({
+            id: `event-${event.id}`,
+
+            /*
+             * Keep the original Supabase ID.
+             * This is used for /events/[id].
+             */
+            sourceId: event.id,
+
+            name: event.title,
+
+            description:
+              event.description,
+
+            date:
+              event.event_date,
+
+            type: 'event',
+
+            category: 'village',
+
+            location:
+              event.location,
+
+            startTime:
+              event.start_time,
+
+            organizer:
+              event.organizer,
+          })
+        )
+
+      /* =========================================
+         COMBINE
+         ========================================= */
 
       const combinedItems = [
         ...festivalItems,
@@ -173,28 +250,53 @@ export default function EventsPage() {
         a.date.localeCompare(b.date)
       )
 
-      console.log('Festival records:', festivalItems)
-      console.log('Village event records:', eventItems)
-      console.log('Combined calendar:', combinedItems)
+      console.log(
+        'Festival records:',
+        festivalItems
+      )
+
+      console.log(
+        'Village event records:',
+        eventItems
+      )
+
+      console.log(
+        'Combined calendar:',
+        combinedItems
+      )
 
       setItems(combinedItems)
+
       setLoading(false)
     }
 
     loadCalendar()
   }, [])
 
+  /* =========================================
+     TODAY
+     ========================================= */
+
   const today = new Date()
 
   today.setHours(0, 0, 0, 0)
 
-  const upcomingItems = items.filter((item) => {
-    const itemDate = new Date(
-      `${item.date}T00:00:00`
-    )
+  /* =========================================
+     UPCOMING
+     ========================================= */
 
-    return itemDate >= today
-  })
+  const upcomingItems =
+    items.filter((item) => {
+      const itemDate = new Date(
+        `${item.date}T00:00:00`
+      )
+
+      return itemDate >= today
+    })
+
+  /* =========================================
+     FILTER
+     ========================================= */
 
   const filteredItems =
     filter === 'all'
@@ -213,39 +315,52 @@ export default function EventsPage() {
   return (
     <main>
 
-      {/* HERO */}
+      {/* =======================================
+          HERO
+          ======================================= */}
 
       <section className="calendar-hero">
+
         <div className="container">
 
           <span className="section-label">
             CHARALAVANDLAPALLI CALENDAR
           </span>
 
-          <h1>Festivals & Events</h1>
+          <h1>
+            Festivals & Events
+          </h1>
 
           <p>
-            National celebrations, Andhra Pradesh festivals,
-            holidays and community events.
+            National celebrations, Andhra Pradesh
+            festivals, holidays and community events.
           </p>
 
         </div>
+
       </section>
 
-      {/* CALENDAR */}
+      {/* =======================================
+          CALENDAR
+          ======================================= */}
 
       <section className="section">
 
         <div className="container">
 
-          {/* FILTERS */}
+          {/* =====================================
+              FILTERS
+              ===================================== */}
 
           <div className="calendar-filters">
 
             {filters.map((item) => (
+
               <button
                 key={item.value}
-                onClick={() => setFilter(item.value)}
+                onClick={() =>
+                  setFilter(item.value)
+                }
                 className={
                   filter === item.value
                     ? 'calendar-filter active'
@@ -254,39 +369,60 @@ export default function EventsPage() {
               >
                 {item.label}
               </button>
+
             ))}
 
           </div>
 
-          {/* LOADING */}
+          {/* =====================================
+              LOADING
+              ===================================== */}
 
           {loading && (
+
             <div className="calendar-message">
               Loading calendar...
             </div>
+
           )}
 
-          {/* ERROR */}
+          {/* =====================================
+              ERROR
+              ===================================== */}
 
           {error && (
+
             <div className="calendar-error">
+
               Unable to load the calendar.
+
               <br />
+
               {error}
+
             </div>
+
           )}
 
-          {/* EMPTY */}
+          {/* =====================================
+              EMPTY
+              ===================================== */}
 
           {!loading &&
             !error &&
             filteredItems.length === 0 && (
+
               <div className="calendar-message">
+
                 No upcoming events found.
+
               </div>
+
             )}
 
-          {/* CALENDAR ITEMS */}
+          {/* =====================================
+              CALENDAR ITEMS
+              ===================================== */}
 
           {!loading &&
             !error &&
@@ -296,15 +432,19 @@ export default function EventsPage() {
 
                 {filteredItems.map((item) => {
 
-                  const date = formatDate(item.date)
+                  const date =
+                    formatDate(item.date)
 
                   return (
+
                     <article
                       key={item.id}
                       className="festival-card"
                     >
 
-                      {/* DATE */}
+                      {/* =================================
+                          DATE
+                          ================================= */}
 
                       <div className="festival-date">
 
@@ -318,34 +458,50 @@ export default function EventsPage() {
 
                       </div>
 
-                      {/* CONTENT */}
+                      {/* =================================
+                          CONTENT
+                          ================================= */}
 
                       <div className="festival-content">
+
+                        {/* META */}
 
                         <div className="festival-meta">
 
                           <span className="festival-category">
+
                             {item.type === 'event'
                               ? '🏡 Village Event'
                               : getItemCategory(item)}
+
                           </span>
 
                           {item.isOptional && (
+
                             <span className="optional-badge">
                               Optional
                             </span>
+
                           )}
 
                         </div>
+
+                        {/* TITLE */}
 
                         <h2>
                           {item.name}
                         </h2>
 
+                        {/* DESCRIPTION */}
+
                         <p>
+
                           {item.description ||
                             'Charalavandlapalli community event.'}
+
                         </p>
+
+                        {/* DETAILS */}
 
                         <div className="calendar-details">
 
@@ -354,32 +510,68 @@ export default function EventsPage() {
                           </small>
 
                           {item.startTime && (
+
                             <small>
-                              🕐 {item.startTime.slice(0, 5)}
+                              🕐{' '}
+                              {item.startTime.slice(
+                                0,
+                                5
+                              )}
                             </small>
+
                           )}
 
                           {item.location && (
+
                             <small>
                               📍 {item.location}
                             </small>
+
                           )}
 
                         </div>
 
+                        {/* ORGANIZER */}
+
                         {item.organizer && (
+
                           <small>
-                            Organized by {item.organizer}
+                            Organized by{' '}
+                            {item.organizer}
                           </small>
+
+                        )}
+
+                        {/* =================================
+                            VIEW DETAILS
+                            ONLY FOR VILLAGE EVENTS
+                            ================================= */}
+
+                        {item.type === 'event' && (
+
+                          <div className="event-card-action">
+
+                            <Link
+                              href={`/events/${item.sourceId}`}
+                              className="event-view-link"
+                            >
+                              View Details →
+                            </Link>
+
+                          </div>
+
                         )}
 
                       </div>
 
                     </article>
+
                   )
+
                 })}
 
               </div>
+
             )}
 
         </div>
