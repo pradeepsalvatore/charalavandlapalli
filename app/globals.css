@@ -869,3 +869,184 @@ footer {
 .calendar-details small {
   color: #7d837f;
 }
+/* =========================================
+   MEMBER REGISTRATION
+   ========================================= */
+
+.register-hero {
+  padding: 150px 0 80px;
+  background: #1e3029;
+  color: white;
+}
+
+.register-hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(45px, 6vw, 70px);
+  margin: 12px 0;
+}
+
+.register-hero p {
+  max-width: 700px;
+  color: #cbd4cf;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.register-form-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.register-intro {
+  margin-bottom: 35px;
+}
+
+.register-intro h2 {
+  font-family: Georgia, serif;
+  font-size: 36px;
+  margin: 10px 0;
+}
+
+.register-intro p {
+  color: #6d7771;
+  max-width: 700px;
+  line-height: 1.7;
+}
+
+.member-form {
+  background: white;
+  border: 1px solid #e4ded2;
+  border-radius: 14px;
+  padding: 35px;
+}
+
+.form-section {
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #ebe6dd;
+}
+
+.form-section h3 {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  margin: 0 0 22px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-field.full {
+  grid-column: 1 / -1;
+}
+
+.form-field label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #34423b;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d9d3c8;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 15px;
+  background: #fff;
+  color: #26342e;
+}
+
+.form-field textarea {
+  resize: vertical;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: #1e3029;
+  box-shadow: 0 0 0 3px rgba(30, 48, 41, 0.08);
+}
+
+.form-field small {
+  color: #7b837e;
+  font-size: 12px;
+}
+
+.privacy-note {
+  background: #f5f1e8;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 25px;
+}
+
+.privacy-note strong {
+  color: #34423b;
+}
+
+.privacy-note p {
+  margin: 7px 0 0;
+  color: #6d7771;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.register-submit {
+  border: none;
+  cursor: pointer;
+}
+
+.register-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-error {
+  background: #fff1f0;
+  border: 1px solid #e8c8c5;
+  color: #a33c35;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.form-success {
+  background: #eef7f0;
+  border: 1px solid #c8dfcc;
+  color: #315d3a;
+  padding: 20px;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+
+  .register-hero {
+    padding: 125px 0 60px;
+  }
+
+  .member-form {
+    padding: 22px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-field.full {
+    grid-column: auto;
+  }
+
+}
