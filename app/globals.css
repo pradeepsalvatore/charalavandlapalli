@@ -2899,3 +2899,393 @@ footer {
     min-height: 320px;
   }
 }
+/* ================================
+   PANCHANGAM
+================================ */
+
+.panchang-page {
+  min-height: 100vh;
+}
+
+.panchang-hero {
+  padding: 80px 0 70px;
+  text-align: center;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(120, 80, 30, 0.08),
+      rgba(255, 255, 255, 0.95)
+    );
+}
+
+.panchang-hero h1 {
+  margin: 14px 0 6px;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+}
+
+.panchang-hero p {
+  margin: 0;
+  font-size: 1.25rem;
+  opacity: 0.7;
+}
+
+.panchang-location {
+  margin-top: 22px;
+  font-size: 0.95rem;
+  opacity: 0.7;
+}
+
+.panchang-date-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 12px;
+}
+
+.panchang-date {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.panchang-date strong {
+  font-size: 1.15rem;
+}
+
+.panchang-date span {
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+.panchang-today {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 55px;
+}
+
+.panchang-section {
+  margin-bottom: 65px;
+}
+
+.panchang-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 25px;
+}
+
+.panchang-section-heading > span {
+  font-size: 2rem;
+}
+
+.panchang-section-heading h2 {
+  margin: 0;
+}
+
+.panchang-section-heading p {
+  margin: 3px 0 0;
+  opacity: 0.6;
+}
+
+.panchang-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.panchang-card {
+  padding: 28px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  text-align: center;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  box-shadow:
+    0 8px 25px
+    rgba(0, 0, 0, 0.04);
+}
+
+.panchang-icon {
+  font-size: 2rem;
+}
+
+.panchang-label {
+  font-size: 0.9rem;
+  opacity: 0.65;
+}
+
+.panchang-card strong {
+  font-size: 1.35rem;
+}
+
+.panchang-card small {
+  opacity: 0.55;
+}
+
+.timing-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.timing-card {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 22px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.timing-card > span {
+  font-size: 1.8rem;
+}
+
+.timing-card small,
+.timing-card em {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.timing-card strong {
+  display: block;
+  margin: 4px 0;
+  font-size: 1.2rem;
+}
+
+.period-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.period-card {
+  padding: 22px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.period-card > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.period-card > div > span {
+  font-size: 1.5rem;
+}
+
+.period-card strong,
+.period-card small {
+  display: block;
+}
+
+.period-card small {
+  opacity: 0.6;
+  margin-top: 3px;
+}
+
+.period-card.danger {
+  border-left: 4px solid #c85b5b;
+}
+
+.period-card.warning {
+  border-left: 4px solid #c99a43;
+}
+
+.period-card.good {
+  border-left: 4px solid #4d9b68;
+}
+
+.panchang-time {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.choghadiya-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.choghadiya-card {
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.choghadiya-card strong,
+.choghadiya-card span,
+.choghadiya-card small {
+  display: block;
+}
+
+.choghadiya-card span {
+  margin-top: 8px;
+  font-size: 0.85rem;
+}
+
+.choghadiya-card small {
+  margin-top: 5px;
+  opacity: 0.55;
+}
+
+.choghadiya-card.good {
+  border-left: 4px solid #4d9b68;
+}
+
+.choghadiya-card.bad {
+  border-left: 4px solid #c85b5b;
+}
+
+.choghadiya-card.neutral {
+  border-left: 4px solid #999;
+}
+
+.additional-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.additional-grid > div {
+  padding: 20px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.025);
+}
+
+.additional-grid small,
+.additional-grid strong,
+.additional-grid em {
+  display: block;
+}
+
+.additional-grid small {
+  opacity: 0.6;
+}
+
+.additional-grid strong {
+  margin-top: 7px;
+}
+
+.additional-grid em {
+  margin-top: 3px;
+  font-style: normal;
+  opacity: 0.65;
+}
+
+.panchang-loading {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.panchang-spinner {
+  font-size: 3rem;
+  animation: panchang-spin 1.2s linear infinite;
+}
+
+@keyframes panchang-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.panchang-loading h2 {
+  margin: 20px 0 5px;
+}
+
+.panchang-loading p {
+  opacity: 0.6;
+}
+
+.panchang-source {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding: 22px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.035);
+  margin-top: 30px;
+}
+
+.panchang-source > span {
+  font-size: 1.8rem;
+}
+
+.panchang-source strong {
+  display: block;
+}
+
+.panchang-source p {
+  margin: 4px 0 0;
+  opacity: 0.65;
+}
+
+@media (max-width: 900px) {
+  .panchang-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .timing-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .choghadiya-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .additional-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .panchang-hero {
+    padding: 55px 0 45px;
+  }
+
+  .panchang-date-nav {
+    gap: 10px;
+  }
+
+  .panchang-date-nav .btn {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+
+  .panchang-grid,
+  .timing-grid,
+  .period-grid,
+  .choghadiya-grid,
+  .additional-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .period-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .panchang-section {
+    margin-bottom: 45px;
+  }
+}
