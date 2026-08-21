@@ -1,52 +1,17 @@
 'use client'
 
-import { useState } from 'react'
-
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <>
       {/* HEADER */}
-      <header className="site-header">
-        <div className="container nav">
-          <a href="#home" className="brand">
-            <span className="brand-mark">C</span>
-
-            <span>
-              <strong>Charalavandlapalli</strong>
-              <small>Village Community</small>
-            </span>
-          </a>
-
-          <button
-            className="menu-btn"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Open menu"
-          >
-            ☰
-          </button>
-
-          <nav className={menuOpen ? 'open' : ''}>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="/events">Events</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#updates">Updates</a>
-            <a href="#community">Community</a>
-
-            <a href="/register" className="nav-cta">
-              Join Community
-            </a>
-          </nav>
-        </div>
-      </header>
-
       <main id="home">
 
         {/* HERO */}
         <section className="hero">
           <div className="hero-content container">
+
             <span className="eyebrow">
               OUR VILLAGE • OUR PEOPLE • OUR FUTURE
             </span>
@@ -63,24 +28,35 @@ export default function Home() {
             </p>
 
             <div className="hero-actions">
-              <a href="/register" className="btn primary">
+
+              <a
+                href="/register"
+                className="btn primary"
+              >
                 Join Our Community
               </a>
 
-              <a href="/events" className="btn ghost">
+              <a
+                href="/events"
+                className="btn ghost"
+              >
                 Explore Events
               </a>
+
             </div>
+
           </div>
 
           <div className="hero-scroll">
             Scroll to explore ↓
           </div>
+
         </section>
 
         {/* COMMUNITY STRIP */}
         <section className="stats">
           <div className="container stats-grid">
+
             <div>
               <strong>Community</strong>
               <span>Connecting our people</span>
@@ -100,6 +76,7 @@ export default function Home() {
               <strong>Support</strong>
               <span>Helping one another</span>
             </div>
+
           </div>
         </section>
 
@@ -108,6 +85,7 @@ export default function Home() {
           <div className="container two-col">
 
             <div>
+
               <span className="section-label">
                 ABOUT OUR VILLAGE
               </span>
@@ -128,12 +106,17 @@ export default function Home() {
                 generations.
               </p>
 
-              <a href="/register" className="text-link">
+              <a
+                href="/register"
+                className="text-link"
+              >
                 Become a registered member →
               </a>
+
             </div>
 
             <div className="about-card">
+
               <div className="card-icon">⌂</div>
 
               <h3>Our Community</h3>
@@ -149,6 +132,7 @@ export default function Home() {
                 <span>✓ Member directory</span>
                 <span>✓ Community help</span>
               </div>
+
             </div>
 
           </div>
@@ -159,28 +143,37 @@ export default function Home() {
           <div className="container">
 
             <div className="section-head">
+
               <div>
+
                 <span className="section-label">
                   WHAT'S HAPPENING
                 </span>
 
                 <h2>Upcoming events</h2>
+
               </div>
 
-              <a href="/events" className="text-link">
+              <a
+                href="/events"
+                className="text-link"
+              >
                 View calendar →
               </a>
+
             </div>
 
             <div className="cards three">
 
               <article className="event-card">
+
                 <div className="date">
                   <b>28</b>
                   <span>AUG</span>
                 </div>
 
                 <div>
+
                   <span className="tag festival">
                     FESTIVAL
                   </span>
@@ -194,16 +187,20 @@ export default function Home() {
                   <small>
                     📍 Village Community Grounds
                   </small>
+
                 </div>
+
               </article>
 
               <article className="event-card">
+
                 <div className="date">
                   <b>30</b>
                   <span>AUG</span>
                 </div>
 
                 <div>
+
                   <span className="tag community">
                     COMMUNITY
                   </span>
@@ -217,16 +214,20 @@ export default function Home() {
                   <small>
                     🕖 7:00 AM • Main Road
                   </small>
+
                 </div>
+
               </article>
 
               <article className="event-card">
+
                 <div className="date">
                   <b>05</b>
                   <span>SEP</span>
                 </div>
 
                 <div>
+
                   <span className="tag sports">
                     ACTIVITY
                   </span>
@@ -240,10 +241,13 @@ export default function Home() {
                   <small>
                     📍 Village Ground
                   </small>
+
                 </div>
+
               </article>
 
             </div>
+
           </div>
         </section>
 
@@ -252,17 +256,24 @@ export default function Home() {
           <div className="container">
 
             <div className="section-head">
+
               <div>
+
                 <span className="section-label">
                   OUR MEMORIES
                 </span>
 
                 <h2>Village gallery</h2>
+
               </div>
 
-              <a href="/gallery" className="text-link">
+              <a
+                href="/gallery"
+                className="text-link"
+              >
                 View all albums →
               </a>
+
             </div>
 
             <div className="gallery-grid">
@@ -302,6 +313,7 @@ export default function Home() {
           <div className="container two-col">
 
             <div>
+
               <span className="section-label">
                 VILLAGE NEWS
               </span>
@@ -311,6 +323,7 @@ export default function Home() {
               <div className="updates">
 
                 <article>
+
                   <span>21 AUG 2026</span>
 
                   <h3>
@@ -321,9 +334,11 @@ export default function Home() {
                     We are building a digital space to keep
                     Charalavandlapalli connected.
                   </p>
+
                 </article>
 
                 <article>
+
                   <span>20 AUG 2026</span>
 
                   <h3>
@@ -334,9 +349,11 @@ export default function Home() {
                     Register as a member and help us build a
                     useful village directory.
                   </p>
+
                 </article>
 
                 <article>
+
                   <span>18 AUG 2026</span>
 
                   <h3>
@@ -347,13 +364,16 @@ export default function Home() {
                     Future events and announcements will be
                     published here.
                   </p>
+
                 </article>
 
               </div>
+
             </div>
 
             {/* BIRTHDAYS */}
             <div>
+
               <span className="section-label">
                 COMMUNITY MOMENTS
               </span>
@@ -361,29 +381,37 @@ export default function Home() {
               <h2>Birthdays & celebrations</h2>
 
               <div className="birthday-box">
+
                 <div className="cake">🎂</div>
 
                 <div>
+
                   <strong>Today's birthdays</strong>
 
                   <p>
                     Member birthdays will appear here
                     automatically.
                   </p>
+
                 </div>
+
               </div>
 
               <div className="birthday-box">
+
                 <div className="cake">🎉</div>
 
                 <div>
+
                   <strong>Festivals & special days</strong>
 
                   <p>
                     Keep track of village celebrations
                     throughout the year.
                   </p>
+
                 </div>
+
               </div>
 
             </div>
@@ -396,6 +424,7 @@ export default function Home() {
           <div className="container">
 
             <div className="center-head">
+
               <span className="section-label">
                 COMMUNITY FIRST
               </span>
@@ -408,11 +437,13 @@ export default function Home() {
                 Use the portal to find opportunities, request
                 help and contribute your skills.
               </p>
+
             </div>
 
             <div className="cards three">
 
               <article className="feature">
+
                 <div className="feature-icon">🤝</div>
 
                 <h3>Community Help</h3>
@@ -425,9 +456,11 @@ export default function Home() {
                 <a href="/community">
                   Submit a request →
                 </a>
+
               </article>
 
               <article className="feature">
+
                 <div className="feature-icon">💼</div>
 
                 <h3>Jobs & Opportunities</h3>
@@ -440,9 +473,11 @@ export default function Home() {
                 <a href="/opportunities">
                   View opportunities →
                 </a>
+
               </article>
 
               <article className="feature">
+
                 <div className="feature-icon">🌱</div>
 
                 <h3>Volunteer</h3>
@@ -455,17 +490,21 @@ export default function Home() {
                 <a href="/opportunities">
                   Become a volunteer →
                 </a>
+
               </article>
 
             </div>
+
           </div>
         </section>
 
         {/* REGISTER CTA */}
         <section className="register-section">
+
           <div className="container register-box">
 
             <div>
+
               <span className="section-label">
                 JOIN US
               </span>
@@ -479,51 +518,96 @@ export default function Home() {
                 directory of Charalavandlapalli residents and
                 well-wishers.
               </p>
+
             </div>
 
             <div>
-              <a href="/register" className="btn dark">
+
+              <a
+                href="/register"
+                className="btn dark"
+              >
                 Register as a Member →
               </a>
+
             </div>
 
           </div>
+
         </section>
 
       </main>
 
       {/* FOOTER */}
       <footer>
+
         <div className="container footer-grid">
 
           <div>
+
             <div className="brand footer-brand">
-              <span className="brand-mark">C</span>
+
+              <span className="brand-mark">
+                C
+              </span>
 
               <span>
-                <strong>Charalavandlapalli</strong>
-                <small>Village Community</small>
+                <strong>
+                  Charalavandlapalli
+                </strong>
+
+                <small>
+                  Village Community
+                </small>
               </span>
+
             </div>
 
             <p>
               Connecting our village, preserving our memories
               and building our future together.
             </p>
+
           </div>
 
           <div>
+
             <strong>Explore</strong>
-            <a href="#about">About</a>
-            <a href="/events">Events</a>
-            <a href="#gallery">Gallery</a>
+
+            <a href="#about">
+              About
+            </a>
+
+            <a href="/events">
+              Events
+            </a>
+
+            <a href="#gallery">
+              Gallery
+            </a>
+
           </div>
 
           <div>
+
             <strong>Community</strong>
-            <a href="/register">Register</a>
-            <a href="/community">Community Help</a>
-            <a href="/contact">Contact</a>
+
+            <a href="/login">
+              Login
+            </a>
+
+            <a href="/register">
+              Register
+            </a>
+
+            <a href="/community">
+              Community Help
+            </a>
+
+            <a href="/contact">
+              Contact
+            </a>
+
           </div>
 
         </div>
@@ -532,6 +616,7 @@ export default function Home() {
           © 2026 Charalavandlapalli Village Community.
           Built for the community.
         </div>
+
       </footer>
     </>
   )

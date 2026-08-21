@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import SiteHeader from './components/site-header'
 
 export const metadata: Metadata = {
   title: 'Charalavandlapalli Village Community',
-  description: 'The official community portal for Charalavandlapalli',
+  description:
+    'The official community portal for Charalavandlapalli',
 }
 
 export default function RootLayout({
@@ -13,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <SiteHeader />
+        {children}
+      </body>
     </html>
   )
 }
