@@ -50,7 +50,10 @@ export default function AdminDashboardPage() {
         await supabase.rpc('is_admin')
 
       if (adminError) {
-        console.error('Admin check failed:', adminError)
+        console.error(
+          'Admin check failed:',
+          adminError
+        )
 
         setError(
           `Unable to verify administrator access: ${adminError.message}`
@@ -64,6 +67,7 @@ export default function AdminDashboardPage() {
         setError(
           'Access denied. You are not authorized to access the administrator area.'
         )
+
         setLoading(false)
         return
       }
@@ -80,7 +84,10 @@ export default function AdminDashboardPage() {
           })
 
       if (membersError) {
-        console.error('Members count error:', membersError)
+        console.error(
+          'Members count error:',
+          membersError
+        )
       }
 
       // Pending members
@@ -228,7 +235,11 @@ export default function AdminDashboardPage() {
               {error}
             </div>
 
-            <div style={{ marginTop: '20px' }}>
+            <div
+              style={{
+                marginTop: '20px',
+              }}
+            >
               <Link
                 href="/login"
                 className="btn primary"
@@ -295,10 +306,17 @@ export default function AdminDashboardPage() {
             </Link>
 
             <Link
-              href="/events"
+              href="/admin/events"
               className="admin-nav-link"
             >
               Events
+            </Link>
+
+            <Link
+              href="/admin/gallery"
+              className="admin-nav-link"
+            >
+              Gallery
             </Link>
 
             <Link
@@ -451,6 +469,8 @@ export default function AdminDashboardPage() {
 
           <div className="quick-actions">
 
+            {/* MEMBERS */}
+
             <Link
               href="/admin/members"
               className="quick-action"
@@ -461,6 +481,7 @@ export default function AdminDashboardPage() {
               </span>
 
               <div>
+
                 <strong>
                   Manage Members
                 </strong>
@@ -469,11 +490,14 @@ export default function AdminDashboardPage() {
                   Approve registrations and manage
                   member profiles.
                 </span>
+
               </div>
 
               <b>→</b>
 
             </Link>
+
+            {/* EVENTS */}
 
             <Link
               href="/admin/events"
@@ -485,6 +509,7 @@ export default function AdminDashboardPage() {
               </span>
 
               <div>
+
                 <strong>
                   Events & Calendar
                 </strong>
@@ -492,19 +517,26 @@ export default function AdminDashboardPage() {
                 <span>
                   View village events and festivals.
                 </span>
+
               </div>
 
               <b>→</b>
 
             </Link>
 
-            <div className="quick-action coming-soon">
+            {/* GALLERY */}
+
+            <Link
+              href="/admin/gallery"
+              className="quick-action"
+            >
 
               <span className="quick-action-icon">
                 🖼️
               </span>
 
               <div>
+
                 <strong>
                   Gallery
                 </strong>
@@ -513,13 +545,14 @@ export default function AdminDashboardPage() {
                   Manage village photographs and
                   event albums.
                 </span>
+
               </div>
 
-              <em>
-                Coming soon
-              </em>
+              <b>→</b>
 
-            </div>
+            </Link>
+
+            {/* VILLAGE UPDATES */}
 
             <div className="quick-action coming-soon">
 
@@ -528,6 +561,7 @@ export default function AdminDashboardPage() {
               </span>
 
               <div>
+
                 <strong>
                   Village Updates
                 </strong>
@@ -536,6 +570,7 @@ export default function AdminDashboardPage() {
                   Publish announcements and daily
                   community updates.
                 </span>
+
               </div>
 
               <em>
@@ -543,6 +578,8 @@ export default function AdminDashboardPage() {
               </em>
 
             </div>
+
+            {/* COMMUNITY REQUESTS */}
 
             <div className="quick-action coming-soon">
 
@@ -551,6 +588,7 @@ export default function AdminDashboardPage() {
               </span>
 
               <div>
+
                 <strong>
                   Community Requests
                 </strong>
@@ -559,6 +597,7 @@ export default function AdminDashboardPage() {
                   Manage requests for help and
                   community support.
                 </span>
+
               </div>
 
               <em>
@@ -567,6 +606,8 @@ export default function AdminDashboardPage() {
 
             </div>
 
+            {/* JOBS & OPPORTUNITIES */}
+
             <div className="quick-action coming-soon">
 
               <span className="quick-action-icon">
@@ -574,6 +615,7 @@ export default function AdminDashboardPage() {
               </span>
 
               <div>
+
                 <strong>
                   Jobs & Opportunities
                 </strong>
@@ -582,6 +624,7 @@ export default function AdminDashboardPage() {
                   Publish recruitment and local
                   opportunities.
                 </span>
+
               </div>
 
               <em>
