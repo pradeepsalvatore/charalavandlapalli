@@ -37,7 +37,7 @@ export default function LoginPage() {
       return
     }
 
-    router.push('/admin/members')
+    router.push('/admin')
     router.refresh()
   }
 
