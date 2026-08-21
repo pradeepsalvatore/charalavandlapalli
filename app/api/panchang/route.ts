@@ -56,7 +56,7 @@ function getCalculationDate(
 }
 
 function toTime(
-  value: string | Date | undefined
+  value: string | Date | null | undefined
 ) {
   if (!value) {
     return null
@@ -82,10 +82,13 @@ function toTime(
     }
   ).format(date)
 }
-function getCurrentItem<T extends {
-  startTime: string
-  endTime: string
-}>(
+function getCurrentItem<
+  T extends {
+    startTime: string | Date
+    endTime: string | Date
+    name?: string
+  }
+>(
   items: T[] | undefined,
   date: Date
 ) {
@@ -95,13 +98,15 @@ function getCurrentItem<T extends {
 
   return (
     items.find((item) => {
-      const start = new Date(
-        item.startTime
-      )
+      const start =
+        item.startTime instanceof Date
+          ? item.startTime
+          : new Date(item.startTime)
 
-      const end = new Date(
-        item.endTime
-      )
+      const end =
+        item.endTime instanceof Date
+          ? item.endTime
+          : new Date(item.endTime)
 
       return (
         date >= start &&
