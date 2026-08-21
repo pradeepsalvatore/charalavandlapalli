@@ -56,9 +56,18 @@ function getCalculationDate(
 }
 
 function toTime(
-  value: string | undefined
+  value: string | Date | undefined
 ) {
   if (!value) {
+    return null
+  }
+
+  const date =
+    value instanceof Date
+      ? value
+      : new Date(value)
+
+  if (Number.isNaN(date.getTime())) {
     return null
   }
 
@@ -71,9 +80,8 @@ function toTime(
       second: '2-digit',
       hour12: false,
     }
-  ).format(new Date(value))
+  ).format(date)
 }
-
 function getCurrentItem<T extends {
   startTime: string
   endTime: string

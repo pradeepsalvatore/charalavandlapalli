@@ -173,7 +173,6 @@ const TELUGU: Record<string, string> = {
   Balava: 'బాలవ',
   Kaulava: 'కౌలవ',
 
-  Shravana: 'శ్రావణం',
   Varsha: 'వర్ష ఋతువు',
   Dakshinayana: 'దక్షిణాయనం',
 
